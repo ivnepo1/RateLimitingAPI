@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Text.Json;
 
 namespace ApiRandomBytes.Controllers
@@ -9,7 +10,9 @@ namespace ApiRandomBytes.Controllers
     {
         private readonly object counterLock = new object();
         private static int ByteCounter = 0;
-        private int MaxRequests = 1024;
+        private static int MaxRequests = 1024;
+        private int MinRequestsRange = 100;
+        private int MaxRequestsRange = 1048576;
         private int DefaultBytes = 32;
         private static DateTime RateWindowStart = DateTime.UtcNow;
         public int WindowTimeInSeconds = 10;
@@ -55,6 +58,27 @@ namespace ApiRandomBytes.Controllers
             };
             var jsonSerialToReturn = JsonSerializer.Serialize(objectToReturn);
             return Content(jsonSerialToReturn, "application/json");
+
+        }
+
+        [HttpPost("limit")]
+        public IActionResult UpdateLimit([FromBody] RequestLimitClass request)
+        {
+            if (request.limit <= 0 || request.limit < MinRequestsRange || request.limit > MaxRequestsRange)
+            {
+                return StatusCode(429, $"Max request limit has been updated to {request.limit}.");
+            } else
+            {
+                MaxRequests = request.limit;
+                return Ok($"Max request limit has been updated to {request.limit}.");
+            }
+
+        }[HttpPost("reset")]
+        public IActionResult Reset()
+        {
+            ByteCounter = 0;
+
+            return Ok("reset complete :D" );
 
         }
     }

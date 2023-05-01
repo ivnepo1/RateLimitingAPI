@@ -32,4 +32,15 @@ namespace ApiRandomBytes
         }
 
     }
+
+    public class RequestLimitClass
+    {
+        public int limit { get; set; }
+    }
+
+    public class ClientRateLimitClass
+    {
+        public string id { get; set; }
+        public int maxRequests { get; set; }
+    }
 }

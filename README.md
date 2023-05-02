@@ -45,24 +45,25 @@ https://learn.microsoft.com/en-us/dotnet/core/tutorials/publishing-with-visual-s
 7.  Run the project by running the following command: `dotnet run`
 
 ## Assumptions
-GET /random - > means the endpoint must have the **last** part of the URL and not be the whole URL (localhost:5000/random vs localhost:5000/api/something/more/random)
-HTTP Basic Auth - > No credential/password policy is needed as long as Basic Auth is implemented (implemented first but then moved to JWT)
-JWT Token - > no specific or strict requirement as long as it is implemented; login endpoint set to use basic auth
-Client can be identified with numbers and have individual rate limits - > not implemented
-Returned object is simply JSON object with key-pair of "random" and base64 encoded string
-*Extend the API with an Admin endpoint that can reset and/or modify the rate limit for a client.* -> this does **not** include the time window (10 seconds) and only the limit of bytes
-Client = ClientID = Username
+- GET /random - > means the endpoint must have the **last** part of the URL and not be the whole URL (localhost:5000/random vs localhost:5000/api/something/more/random)
+- HTTP Basic Auth - > No credential/password policy is needed as long as Basic Auth is implemented (implemented first but then moved to JWT)
+- JWT Token - > no specific or strict requirement as long as it is implemented; login endpoint set to use basic auth
+- Client can be identified with numbers and have individual rate limits - > not implemented
+- Returned object is simply JSON object with key-pair of "random" and base64 encoded string
+- *Extend the API with an Admin endpoint that can reset and/or modify the rate limit for a client.* -> this does **not** include the time window (10 seconds) and only the limit of bytes
+- Client = ClientID = Username
 
 
 ## Features
 - Extend the API with an Admin endpoint that can reset and/or modify the rate limit for a client.
 - Limit can go up to 1048576 and as low as 100
-- Postman Collection included for testing - endpoint is set to http://localhost:8888/api/random
+- Postman Collection included for testing - 
+- Domain, Port and URL is set to http://localhost:8888/api/random
 - Endpoints are the following:
-   - 'api/random'
-   - 'api/random/limit'
-   - 'api/random/reset'
-   - 'api/random/login'
+   - GET api/random
+   - POST api/random/limit
+   - POST api/random/reset
+   - POST api/random/login
 - Postman Collection included to import used API calls
 
 ## Notes

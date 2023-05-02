@@ -8,21 +8,6 @@
 		{
 			"name": "Random 100",
 			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "corp",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "sim",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [
 					{
@@ -55,21 +40,6 @@
 		{
 			"name": "http://localhost:8888/api/limit",
 			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "corp",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "sim",
-							"type": "string"
-						}
-					]
-				},
 				"method": "POST",
 				"header": [
 					{
@@ -106,21 +76,6 @@
 		{
 			"name": "http://localhost:8888/api/random/reset",
 			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "corp",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "sim",
-							"type": "string"
-						}
-					]
-				},
 				"method": "POST",
 				"header": [],
 				"url": {
@@ -138,6 +93,81 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:8888/api/random/login",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "simcorp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"1\",\r\n    \"password\": \"simcorp\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api/random/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"random",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJZCI6IjEiLCJleHAiOjE2ODMwMjQwNDAsImlzcyI6IkRvZ2VJc3N1ZXIiLCJhdWQiOiJEb2dlQXVkaWVuY2UifQ.vtLD2uMHU7MUbBu1sBu_WS63y6eqSxL7tQ9npvHZ9aY",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

@@ -43,4 +43,10 @@ namespace ApiRandomBytes
         public string id { get; set; }
         public int maxRequests { get; set; }
     }
+
+    public class LoginModel
+    {
+        public string username { get; set; }
+        public string password { get; set; }
+    }
 }

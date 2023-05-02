@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Net;
 using System.Text.Json;
 
 namespace ApiRandomBytes.Controllers
@@ -17,6 +19,7 @@ namespace ApiRandomBytes.Controllers
         private static DateTime RateWindowStart = DateTime.UtcNow;
         public int WindowTimeInSeconds = 10;
 
+        [JwtAuthentication]
         [HttpGet]
         public async Task<IActionResult> RateLimitedGetRandomBytes(int? len)
         {
@@ -61,6 +64,7 @@ namespace ApiRandomBytes.Controllers
 
         }
 
+        [JwtAuthentication]
         [HttpPost("limit")]
         public IActionResult UpdateLimit([FromBody] RequestLimitClass request)
         {
@@ -73,13 +77,29 @@ namespace ApiRandomBytes.Controllers
                 return Ok($"Max request limit has been updated to {request.limit}.");
             }
 
-        }[HttpPost("reset")]
+        }
+        [JwtAuthentication]
+        [HttpPost("reset")]
         public IActionResult Reset()
         {
             ByteCounter = 0;
 
-            return Ok("reset complete :D" );
+            return Ok("reset complete :D");
 
+        }
+
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginModel model)
+        {
+            if (model.username == "1" && model.password == "simcorp")
+            {
+                var token = JwtTokenHelper.CreateToken(model.username); 
+                return Ok(new { Token = token });
+            } else
+            {
+                return StatusCode(401, "Incorrect username and/or password");
+            }
         }
     }
 }

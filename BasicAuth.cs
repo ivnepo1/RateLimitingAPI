@@ -20,7 +20,7 @@ public class BasicAuthMiddleware : IMiddleware
         var username = split[0];
         var password = split[1];
 
-        if (username != "sim" || password != "corp")
+        if (username != "1" || password != "simcorp")
         {
             context.Response.StatusCode = 401;
             return;
